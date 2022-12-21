@@ -1,15 +1,28 @@
-name: GitHub Actions Demo
+name: Test and Publish coverage
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - name: Setup PHP with PECL extension
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          tools: 'composer'
+
+      - name: Install Composer dependencies
+        run: composer install
+
+      - name: Install Node dependencies
+        run: npm install
+
       - name: Test & Publish code coverage (to CodeClimate)
         uses: paambaati/codeclimate-action@v3.2.0
         env:
           CC_TEST_REPORTER_ID: <code_climate_reporter_id>
         with:
-          coverageCommand: php ./vendor/phpunit/phpunit/phpunit --bootstrap='./vendor/autoload.php' --configuration='./phpunit.xml.dist' --coverage-clover='./build/php/coverage.xml'
+          coverageCommand: composer run php:test:coverage && npm run js:test:coverage
           coverageLocations: |
             ${{github.workspace}}/builds/php/*.xml:clover
+            ${{github.workspace}}/builds/js/clover.xml:clover
