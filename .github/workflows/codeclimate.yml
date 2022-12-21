@@ -1,5 +1,5 @@
 name: Test and Publish Coverage (CodeClimate)
-on: [push, pull_request]
+on: [push]
 jobs:
   test:
     name: "Test"
