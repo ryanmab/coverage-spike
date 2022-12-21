@@ -1,5 +1,9 @@
 name: Test and Publish Coverage (SonarQube)
-on: [pull_request]
+push:
+  branches:
+    - main
+  pull_request:
+
 jobs:
   test:
     name: "Test"
