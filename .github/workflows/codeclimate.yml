@@ -1,10 +1,13 @@
-name: Test and Publish coverage
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+name: Test and Publish Coverage (CodeClimate)
 on: [push]
 jobs:
   test:
+    name: "Test"
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Setup PHP with PECL extension
         uses: shivammathur/setup-php@v2
         with:
