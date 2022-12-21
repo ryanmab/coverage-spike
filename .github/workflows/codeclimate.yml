@@ -20,10 +20,10 @@ jobs:
       - name: Install Node dependencies
         run: npm install
 
-      - name: Run Backend Tests
+      - name: Run Frontend Tests
         run: npm run js:test:coverage
 
-      - name: Run Frontend Tests
+      - name: Run Backend Tests
         run: composer run php:test:coverage
 
       - name: Publish code coverage (to CodeClimate)
