@@ -20,12 +20,19 @@ jobs:
       - name: Install Node dependencies
         run: npm install
 
-      - name: Test & Publish code coverage (to CodeClimate)
+      - name: Run Backend Tests
+        run: npm run js:test:coverage
+
+      - name: Run Frontend Tests
+        run: composer run php:test:coverage
+
+      - name: Publish code coverage (to CodeClimate)
         uses: paambaati/codeclimate-action@v3.2.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_TOKEN }}
         with:
-          coverageCommand: composer run php:test:coverage && npm run js:test:coverage
+          # We've already got the coverage files (so don't need to run any tests)
+          coverageCommand: echo "Publishing to CodeClimate"
           coverageLocations: |
             ${{github.workspace}}/build/php/*.xml:clover
             ${{github.workspace}}/build/js/clover.xml:clover
