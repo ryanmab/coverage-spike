@@ -1,4 +1,4 @@
-# coveralls-spike
+# Coverage Solutions Spike
 Spike into various coverage solutions which can be used with PHPUnit and Jest.
 
 Currently, this repo has 2 integrations:
