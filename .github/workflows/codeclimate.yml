@@ -23,9 +23,9 @@ jobs:
       - name: Test & Publish code coverage (to CodeClimate)
         uses: paambaati/codeclimate-action@v3.2.0
         env:
-          CC_TEST_REPORTER_ID: <code_climate_reporter_id>
+          CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_TOKEN }}
         with:
           coverageCommand: composer run php:test:coverage && npm run js:test:coverage
           coverageLocations: |
-            ${{github.workspace}}/builds/php/*.xml:clover
-            ${{github.workspace}}/builds/js/clover.xml:clover
+            ${{github.workspace}}/build/php/*.xml:clover
+            ${{github.workspace}}/build/js/clover.xml:clover
