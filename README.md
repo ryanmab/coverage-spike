@@ -1,4 +1,4 @@
-# coveralls-spike
+# Coverage Solutions Spike
 Spike into Coveralls using PHPUnit and Jest
 
 ## Compile Coverage
