@@ -16,4 +16,15 @@ class SimpleServiceTest extends TestCase
             $simpleService->getCoveredFunctionMessage()
         );
     }
+
+    public function testPartiallyCoveredFunction(): void
+    {
+        $simpleService = new SimpleService();
+
+        // Only test the false argument, meaning theres a missing path in the method
+        $this->assertEquals(
+            "This is a covered function (getPartiallyCoveredFunctionMessage).",
+            $simpleService->getPartiallyCoveredFunctionMessage(false)
+        );
+    }
 }
