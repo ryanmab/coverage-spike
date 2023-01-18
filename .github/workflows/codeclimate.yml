@@ -44,3 +44,8 @@ jobs:
           coverageLocations: |
             ${{github.workspace}}/build/php/*.xml:clover
             ${{github.workspace}}/build/js/clover.xml:clover
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: codeclimate-build-files
+          path: ${{github.workspace}}
