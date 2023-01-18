@@ -45,7 +45,10 @@ jobs:
             ${{github.workspace}}/build/php/*.xml:clover
             ${{github.workspace}}/build/js/clover.xml:clover
 
+      - name: Archive build package
+        run: zip -q -r build.zip ./ -x "./node_modules/*" "./vendor/*"
+
       - uses: actions/upload-artifact@v3
         with:
           name: codeclimate-build-files
-          path: ${{github.workspace}}
+          path: build.zip
