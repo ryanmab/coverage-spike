@@ -2,7 +2,6 @@
 <ruleset>
     <config name="testVersion" value="7.4"/>
     <rule ref="PHPCompatibility" />
-    <rule ref="PHPCompatibilitySymfonyPolyfillPHP74" />
     <rule ref="Generic.Arrays.ArrayIndent">
         <properties>
             <property name="indent" value="4" />
