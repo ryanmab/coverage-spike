@@ -68,7 +68,7 @@ jobs:
           COVERALLS_FLAG_NAME: 'backend'
         run: |
           composer global require php-coveralls/php-coveralls
-          php-coveralls --coverage_clover=./build/php/coverage.xml -v
+          php-coveralls --coverage_clover=./build/php/coverage.xml --json_path=./build/php/coveralls-upload.json -v
 
       - name: Archive build package
         run: zip -q -r build.zip ./ -x "./node_modules/*" "./vendor/*"
@@ -79,6 +79,7 @@ jobs:
           path: build.zip
 
   finish:
+    if: always()
     needs: [backend-tests, frontend-tests]
     runs-on: ubuntu-latest
     steps:
