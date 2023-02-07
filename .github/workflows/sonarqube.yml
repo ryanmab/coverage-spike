@@ -39,3 +39,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Archive build package
+        run: zip -q -r build.zip ./ -x "./node_modules/*" "./vendor/*"
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: sonarqube-build-files
+          path: build.zip
