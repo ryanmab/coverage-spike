@@ -1,4 +1,4 @@
-name: Test and Publish Coverage (CodeClimate)
+name: Test and Publish Coverage (Codacy)
 
 on:
   pull_request:
