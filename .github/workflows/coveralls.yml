@@ -68,7 +68,7 @@ jobs:
           COVERALLS_FLAG_NAME: 'backend'
         run: |
           composer global require php-coveralls/php-coveralls
-          php-coveralls --coverage_clover=./build/js/lcov.info -v
+          php-coveralls --coverage_clover=./build/php/coverage.xml -v
 
       - name: Archive build package
         run: zip -q -r build.zip ./ -x "./node_modules/*" "./vendor/*"
