@@ -38,52 +38,52 @@ jobs:
           name: coveralls-frontend-build-files
           path: build.zip
 
-    backend-tests:
-      name: "Backend Tests"
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v3
-          with:
-            fetch-depth: 0
+  backend-tests:
+    name: "Backend Tests"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-        - name: Setup PHP with PECL extension
-          uses: shivammathur/setup-php@v2
-          with:
-            php-version: '7.4'
-            tools: 'composer'
+      - name: Setup PHP with PECL extension
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          tools: 'composer'
 
-        - name: Install Composer dependencies
-          run: composer install
+      - name: Install Composer dependencies
+        run: composer install
 
-        - name: Run Backend Tests
-          run: composer run php:test:coverage
+      - name: Run Backend Tests
+        run: composer run php:test:coverage
 
-        # Coveralls doesn't have a nice method of ingest for Clover XML files (that's what PHPUnit produces).
-        # Theres a package which can do the conversion for us.
-        - name: Publish code coverage (to Coveralls)
-          env:
-            COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            COVERALLS_PARALLEL: true
-            COVERALLS_FLAG_NAME: 'backend'
-          run: |
-            composer global require php-coveralls/php-coveralls
-            php-coveralls --coverage_clover=./build/js/lcov.info -v
+      # Coveralls doesn't have a nice method of ingest for Clover XML files (that's what PHPUnit produces).
+      # Theres a package which can do the conversion for us.
+      - name: Publish code coverage (to Coveralls)
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COVERALLS_PARALLEL: true
+          COVERALLS_FLAG_NAME: 'backend'
+        run: |
+          composer global require php-coveralls/php-coveralls
+          php-coveralls --coverage_clover=./build/js/lcov.info -v
 
-        - name: Archive build package
-          run: zip -q -r build.zip ./ -x "./node_modules/*" "./vendor/*"
+      - name: Archive build package
+        run: zip -q -r build.zip ./ -x "./node_modules/*" "./vendor/*"
 
-        - uses: actions/upload-artifact@v3
-          with:
-            name: coveralls-backend-build-files
-            path: build.zip
+      - uses: actions/upload-artifact@v3
+        with:
+          name: coveralls-backend-build-files
+          path: build.zip
 
-    finish:
-      needs: [backend-tests, frontend-tests]
-      runs-on: ubuntu-latest
-      steps:
-        - name: Finish Coveralls Uploads
-          uses: coverallsapp/github-action@master
-          with:
-            github-token: ${{ secrets.github_token }}
-            parallel-finished: true
+  finish:
+    needs: [backend-tests, frontend-tests]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Finish Coveralls Uploads
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.github_token }}
+          parallel-finished: true
