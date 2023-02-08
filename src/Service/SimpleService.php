@@ -15,8 +15,4 @@ class SimpleService
     private function getSecondaryCoveredFunctionMessage(): string {
         return "This is also a covered function (getSecondaryCoveredFunctionMessage). ";
     }
-
-    public function getAnotherUncoveredFunction(): string  {
-        return true;
-    }
 }
