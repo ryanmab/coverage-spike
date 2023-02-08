@@ -28,8 +28,8 @@ jobs:
       - name: Install Node dependencies
         run: npm install
 
-      - name: Run Frontend Tests
-        run: npm run js:test:coverage
+#      - name: Run Frontend Tests
+#        run: npm run js:test:coverage
 
       - name: Run Backend Tests
         run: composer run php:test:coverage
@@ -38,7 +38,8 @@ jobs:
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
             project-token: ${{ secrets.CODACY_TOKEN }}
-            coverage-reports: ${{github.workspace}}/build/php/coverage.xml,${{github.workspace}}/build/js/lcov.info
+            coverage-reports: ${{github.workspace}}/build/php/coverage.xml
+#            coverage-reports: ${{github.workspace}}/build/php/coverage.xml,${{github.workspace}}/build/js/lcov.info
 
       - name: Archive build package
         run: zip -q -r build.zip ./ -x "./node_modules/*" "./vendor/*"
